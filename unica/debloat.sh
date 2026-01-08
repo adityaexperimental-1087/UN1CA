@@ -540,7 +540,6 @@ system/app/ARDrawing
 system/app/AASAservice
 system/app/BasicDreams
 system/app/BixbyWakeup
-system/app/BlockchainBasicKit
 system/app/CompanionDeviceManager
 system/app/EasterEgg
 system/app/Fast
