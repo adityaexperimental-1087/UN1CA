@@ -571,7 +571,6 @@ system/priv-app/AvatarPicker
 system/priv-app/BadgeProvider_N
 system/priv-app/DeviceBasedServiceConsent
 system/priv-app/DevGPUDriver-EX2200
-system/priv-app/DeviceDiagnostics
 system/priv-app/EasySetup
 system/priv-app/HashTagService
 system/priv-app/KmxService
