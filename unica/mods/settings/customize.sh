@@ -32,13 +32,6 @@ SMALI_PATCH "system" "system/priv-app/SecSettings/SecSettings.apk" \
     'move-result p0' \
     'const/4 p0, 0x1'
 
-# Show real device model number
-SMALI_PATCH "system" "system/priv-app/SecSettings/SecSettings.apk" \
-    "smali_classes4/com/samsung/android/settings/deviceinfo/aboutphone/ModelNameGetter.smali" "replace" \
-    'getModelName()Ljava/lang/String;' \
-    'ro.product.model' \
-    'ro.boot.em.model'
-
 LOG_STEP_IN "- Adding UN1CA Settings"
 
 # Dynamically patch SecSettings
