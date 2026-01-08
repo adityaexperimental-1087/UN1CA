@@ -1,4 +1,4 @@
-name: Build
+name: Build ROM
 
 on:
   workflow_dispatch:
@@ -80,7 +80,7 @@ jobs:
       - name: Build ROM
         run: |
           source ./buildenv.sh ${{ matrix.target }}
-          ./scripts/make_rom.sh --no-rom-zip
+          ./scripts/make_rom.sh --force
       
       - name: Upload to GoFile
         run: |
