@@ -530,7 +530,6 @@ system/priv-app/PaymentFramework
 system/priv-app/OfflineLanguageModel_stub
 system/priv-app/DigitalWellbeing
 system/priv-app/DynamicSystemInstallationService
-system/priv-app/KnoxCore
 system/priv-app/MultiControl
 system/priv-app/OMCAgent5
 system/priv-app/PetService
