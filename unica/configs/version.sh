@@ -16,8 +16,8 @@
 #
 
 # Only the below variable(s) need to be changed!
-VERSION_MAJOR=2
-VERSION_MINOR=6
+VERSION_MAJOR=26
+VERSION_MINOR=0
 VERSION_PATCH=1
 
 # The below variables will be generated automatically
