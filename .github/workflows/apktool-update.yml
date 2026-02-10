@@ -4,27 +4,43 @@ on:
   workflow_dispatch:
 
 jobs:
-  update:
+  update-apktool:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      # ------------------------------------------------------------
+      # Checkout repo WITH submodules (must be recursive)
+      # ------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
+          submodules: recursive
 
-      - name: Update apktool submodule
+      # ------------------------------------------------------------
+      # Unshallow apktool + checkout required commit
+      # ------------------------------------------------------------
+      - name: Pin apktool to patch-compatible commit
         run: |
           cd external/apktool
+
+          # Ensure full history exists (fixes "unable to read tree")
+          git fetch --unshallow || true
           git fetch origin
+
+          # Checkout the exact commit required by patches
           git checkout 136d78d0aa2b2a08034a9fa7ca87e72359febe23
 
+      # ------------------------------------------------------------
+      # Commit the submodule pointer update
+      # ------------------------------------------------------------
       - name: Commit submodule update
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
           git add external/apktool
           git commit -m "build(deps): pin apktool to patch-compatible commit"
           git push
