@@ -1,10 +1,10 @@
-name: Set apktool to xfwdrev version
+name: Set apktool to exact commit
 
 on:
   workflow_dispatch:
 
 jobs:
-  set-apktool:
+  update-apktool:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,16 +16,18 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Set apktool to xfwdrev commit b55794d
+      - name: Update apktool submodule to commit b55794d
         run: |
           cd external/apktool
 
-          # Point submodule to xfwdrev fork
-          git remote set-url origin https://github.com/xfwdrev/Apktool.git
+          # Make sure origin is iBotPeaches repo
+          git remote set-url origin https://github.com/iBotPeaches/Apktool.git
 
-          # Fetch and checkout the exact commit used by xfwdrev/UN1CA
+          # Fetch all refs
           git fetch origin
-          git checkout b55794d
+
+          # Checkout that exact commit
+          git checkout b55794dea4700b17458a371a9fe7604b2b21db66
 
       - name: Commit submodule update
         run: |
@@ -33,5 +35,5 @@ jobs:
           git config user.email "github-actions@github.com"
 
           git add external/apktool
-          git commit -m "build(deps): align apktool with xfwdrev UN1CA (b55794d)"
+          git commit -m "chore: pin apktool to iBotPeaches Apktool@b55794d"
           git push
