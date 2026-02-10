@@ -10,32 +10,30 @@ jobs:
       contents: write
 
     steps:
-      # ------------------------------------------------------------
-      # Checkout repo WITH submodules (must be recursive)
-      # ------------------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
 
-      # ------------------------------------------------------------
-      # Unshallow apktool + checkout required commit
-      # ------------------------------------------------------------
       - name: Pin apktool to patch-compatible commit
         run: |
           cd external/apktool
 
-          # Ensure full history exists (fixes "unable to read tree")
-          git fetch --unshallow || true
-          git fetch origin
+          echo "Current remotes:"
+          git remote -v
 
-          # Checkout the exact commit required by patches
+          # Ensure upstream remote exists
+          if ! git remote | grep -q upstream; then
+            git remote add upstream https://github.com/iBotPeaches/Apktool.git
+          fi
+
+          # Fetch the exact commit from upstream
+          git fetch upstream 136d78d0aa2b2a08034a9fa7ca87e72359febe23
+
+          # Checkout the commit
           git checkout 136d78d0aa2b2a08034a9fa7ca87e72359febe23
 
-      # ------------------------------------------------------------
-      # Commit the submodule pointer update
-      # ------------------------------------------------------------
       - name: Commit submodule update
         run: |
           git config user.name "github-actions"
