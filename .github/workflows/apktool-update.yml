@@ -1,38 +1,31 @@
-name: Update apktool submodule
+name: Set apktool to xfwdrev version
 
 on:
   workflow_dispatch:
 
 jobs:
-  update-apktool:
+  set-apktool:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo with submodules
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Pin apktool to patch-compatible commit
+      - name: Set apktool to xfwdrev commit b55794d
         run: |
           cd external/apktool
 
-          echo "Current remotes:"
-          git remote -v
+          # Point submodule to xfwdrev fork
+          git remote set-url origin https://github.com/xfwdrev/Apktool.git
 
-          # Ensure upstream remote exists
-          if ! git remote | grep -q upstream; then
-            git remote add upstream https://github.com/iBotPeaches/Apktool.git
-          fi
-
-          # Fetch the exact commit from upstream
-          git fetch upstream 136d78d0aa2b2a08034a9fa7ca87e72359febe23
-
-          # Checkout the commit
-          git checkout 136d78d0aa2b2a08034a9fa7ca87e72359febe23
+          # Fetch and checkout the exact commit used by xfwdrev/UN1CA
+          git fetch origin
+          git checkout b55794d
 
       - name: Commit submodule update
         run: |
@@ -40,5 +33,5 @@ jobs:
           git config user.email "github-actions@github.com"
 
           git add external/apktool
-          git commit -m "build(deps): pin apktool to patch-compatible commit"
+          git commit -m "build(deps): align apktool with xfwdrev UN1CA (b55794d)"
           git push
