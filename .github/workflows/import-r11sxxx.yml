@@ -1,0 +1,37 @@
+name: Import r11sxxx prebuilts (sixteen)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout UN1CA s24+
+        uses: actions/checkout@v4
+        with:
+          ref: s24+
+          fetch-depth: 0
+
+      - name: Clone ExtremeROM sixteen branch
+        run: |
+          git clone --branch sixteen \
+          https://github.com/adityaexperimental-1087/ExtremeROM-Lite-e2sxxx.git source
+
+      - name: Replace r11sxxx folder
+        run: |
+          rm -rf prebuilts/samsung/r11sxxx
+          mkdir -p prebuilts/samsung
+          cp -r source/prebuilts/samsung/r11sxxx prebuilts/samsung/
+
+      - name: Commit and Push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add prebuilts/samsung/r11sxxx
+          git commit -m "Import r11sxxx prebuilts from ExtremeROM sixteen" || echo "No changes"
+          git push origin s24+
