@@ -1,0 +1,32 @@
+name: Import desixtification patches
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  copy-patches:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+
+      - name: Clone source repo
+        run: |
+          git clone --branch sixteen https://github.com/adityaexperimental-1087/ExtremeROM-Lite-e2sxxx.git source
+
+      - name: Copy patch folder
+        run: |
+          mkdir -p unica/patches/_desixtification
+          cp -r source/unica/patches/_desixtification/* unica/patches/_desixtification/
+
+      - name: Commit and Push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add unica/patches/_desixtification
+          git commit -m "Import _desixtification patches from ExtremeROM sixteen" || echo "No changes to commit"
+          git push
