@@ -6,7 +6,7 @@ LATEST_TAG="$(
     | cut -d '"' -f4
 )"
 
-KERNEL_DL_BASE="https://github.com/UN1CA/kernel_samsung_exynos2100/releases/download/$LATEST_TAG"
+KERNEL_DL_BASE="https://github.com/xfwdrev/android_kernel_samsung_ex2100/releases/download/v6/ChicletKernel-UPSTREAM-v6_r9s_KSUN_OFFICIAL_31-01-2026_14-57-14.zip"
 
 LOG_STEP_IN "- Downloading vanilla kernel variant"
 if [[ -d "$TMP_DIR" ]]; then
