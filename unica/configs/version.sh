@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # Only the below variable(s) need to be changed!
-VERSION_MAJOR=3
-VERSION_MINOR=0
-VERSION_PATCH=6
+VERSION_MAJOR=26
+VERSION_MINOR=1
+VERSION_PATCH=0
 
 # The below variables will be generated automatically
 #
@@ -21,5 +21,5 @@ fi
 ROM_VERSION+="-$(git rev-parse --short HEAD 2> /dev/null || echo "null")"
 # Append "-dirty" to version name if uncommited changes are detected
 if [ "$(git --no-optional-locks status -uno --porcelain 2> /dev/null)" ]; then
-    ROM_VERSION+="-dirty"
+    ROM_VERSION+="AdiOS"
 fi
