@@ -73,7 +73,7 @@ jobs:
       - name: Build ROM
         run: |
           source ./buildenv.sh ${{ matrix.target }}
-          ./scripts/make_rom.sh --force
+          ./scripts/make_rom.sh --build-rom-zip
       
       - name: Upload to GoFile
         run: |
